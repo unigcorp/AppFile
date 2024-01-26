@@ -27,60 +27,41 @@
             android:id="@+id/id_etNombres"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introduzca sus nombres" />
+            android:hint="Introduzca sus nombres"
+            android:inputType="textCapSentences"/>
         <EditText
             android:id="@+id/id_etApellidos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introduzca sus apellidos" />
+            android:hint="Introduzca sus apellidos"
+            android:inputType="textCapSentences"/>
         <EditText
             android:id="@+id/id_etCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introduzca su correo" />
+            android:hint="Introduzca su correo"
+            android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/id_etContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introduzca su contrasena" />
+            android:hint="Introduzca su contrasena"
+            android:inputType="textPassword"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <TextView
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Olvidaste tu contrasena ?" />
-            <TextView
-                android:id="@+id/id_forgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Click aqui"
-                android:layout_gravity="end"
-                android:drawableEnd="@drawable/ic_pinch"
-                android:focusable="true"
-                android:clickable="true"
-                android:foreground="?attr/actionBarItemBackground"/>
-        </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ENVIAR"
+            android:text="REGISTRARSE"
             android:layout_marginTop="20dp"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_iniciar_sesion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="REGISTRARSE" />
+            android:text="INICIAR SESION" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,22 +18,28 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:textSize="40dp"
-            android:textStyle="bold" />
+            android:text="INICIAR SESION"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:layout_marginBottom="10dp"/>
 
         <EditText
             android:id="@+id/id_etCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Introduzca su correo"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_border"
+            android:padding="10dp"/>
 
         <EditText
             android:id="@+id/id_etContrasena"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Introduzca su contrasena" />
+            android:hint="Introduzca su contrasena"
+            android:background="@drawable/bg_border"
+            android:padding="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,10 +58,13 @@
                 android:id="@+id/id_forgotPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+
                 android:text="Click aqui"
                 android:layout_gravity="end"
-                android:drawableEnd="@drawable/ic_pinch" />
+                android:drawableEnd="@drawable/ic_pinch"
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?attr/actionBarItemBackground"/>
         </LinearLayout>
 
         <Button
@@ -66,7 +75,7 @@
             android:layout_marginTop="20dp"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="REGISTRARSE" />
