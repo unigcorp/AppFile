@@ -11,6 +11,7 @@ import androidx.core.util.PatternsCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONException
 import org.json.JSONObject
@@ -89,6 +90,7 @@ class SignupActivity : AppCompatActivity() {
         })
         queque.add(strRequest)
     }
+
 
     private fun vaciarDatos(edtNombre: EditText, edtApellidos: EditText, edtCorreo: EditText, edtContrasena: EditText) {
         edtNombre.setText("")
