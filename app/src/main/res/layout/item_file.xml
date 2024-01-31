@@ -12,13 +12,37 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <TextView
-            android:id="@+id/id_nombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Certificado de notas"
-            android:textSize="18dp"
-            android:textStyle="bold"/>
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:weightSum="2">
+           <TextView
+               android:id="@+id/id_nombre"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Certificado de notas"
+               android:textSize="18dp"
+               android:textStyle="bold"
+               android:layout_weight="1"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_weight="1"
+               android:gravity="end">
+               <ImageButton
+                   android:id="@+id/id_edit"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_pinch"/>
+               <ImageButton
+                   android:id="@+id/id_delete"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:src="@drawable/ic_delete"/>
+           </LinearLayout>
+       </LinearLayout>
 
 
 
