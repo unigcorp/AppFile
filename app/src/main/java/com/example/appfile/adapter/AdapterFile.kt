@@ -2,6 +2,7 @@ package com.example.appfile.adapter
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +21,7 @@ import com.example.appfile.model.File
 
 class AdapterFile(private val context:Context,private val interfaz:Interfaz,private val fileList:ArrayList<File>):RecyclerView.Adapter<AdapterFile.MyviewFile>() {
 
-
+    private  var sharedPreferences: SharedPreferences = context.getSharedPreferences("datosUsuario", Context.MODE_PRIVATE)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdapterFile.MyviewFile {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_file,parent,false)
         return MyviewFile(view)
@@ -47,6 +48,7 @@ class AdapterFile(private val context:Context,private val interfaz:Interfaz,priv
         builder.setPositiveButton("Si"){
             diag,which->
             deleteItem(position,idSolicitud)
+            Toast.makeText(context, "id_solicitud "+idSolicitud, Toast.LENGTH_SHORT).show()
         }
         builder.setNegativeButton("No",null)
         val dialog = builder.create()
@@ -59,8 +61,9 @@ class AdapterFile(private val context:Context,private val interfaz:Interfaz,priv
         val stringRequest = object :
             StringRequest(Request.Method.DELETE, Contants.ADRRESS_IP+"file/delete/"+idSolicitud, Response.Listener {
                 response ->
-
             Toast.makeText(context, "SOLICITUD ELIMINADA CORRECTAMENTE", Toast.LENGTH_SHORT).show()
+                fileList.removeAt(position)
+                notifyDataSetChanged()
 
 
         }, Response.ErrorListener {
@@ -69,9 +72,11 @@ class AdapterFile(private val context:Context,private val interfaz:Interfaz,priv
         })
         {
 
-
-
-
+            override fun getHeaders(): MutableMap<String, String> {
+                val parametros = HashMap<String,String>()
+                parametros.put("Authorization","Token "+getToken().toString())
+                return parametros
+            }
         }
         queque.add(stringRequest)
 
@@ -87,5 +92,9 @@ class AdapterFile(private val context:Context,private val interfaz:Interfaz,priv
         val btn_eliminar:ImageButton = itemView.findViewById(R.id.id_delete)
         val btn_editar:ImageButton = itemView.findViewById(R.id.id_edit)
 
+    }
+    private fun getToken():String?{
+        val token = sharedPreferences.getString("TOKEN","")
+        return token
     }
 }

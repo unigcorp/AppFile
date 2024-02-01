@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley
 import com.example.appfile.adapter.AdapterFile
 import com.example.appfile.interfaz.Interfaz
 import com.example.appfile.model.File
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity(), Interfaz {
     private lateinit var fileList:ArrayList<File>
     private lateinit var fileNameList:ArrayList<File>
     private  lateinit var sharedPreferences: SharedPreferences
+    private lateinit var floatingActionButton:FloatingActionButton
     private var id_archivox:String=""
 
 
@@ -43,11 +45,89 @@ class MainActivity : AppCompatActivity(), Interfaz {
         setContentView(R.layout.activity_main)
         sharedPreferences = getSharedPreferences("datosUsuario", Context.MODE_PRIVATE);
         recyclerview = findViewById(R.id.recyclerView)
+        floatingActionButton = findViewById(R.id.floatingActionButton)
         recyclerview.layoutManager = GridLayoutManager(this,1)
         fileList = arrayListOf<File>()
         fileNameList = arrayListOf()
+
+        floatingActionButton.setOnClickListener {
+            openDilaogAdd()
+        }
         listarArchivos()
         listarNombresArchivos()
+    }
+
+    private fun openDilaogAdd() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_file)
+        val width = ViewGroup.LayoutParams.MATCH_PARENT
+        val heigth = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog.window?.setLayout(width,heigth)
+
+
+        btn_envia = dialog.findViewById(R.id.btn_envia)
+        btn_cancela = dialog.findViewById(R.id.btn_cancela)
+        spinner = dialog.findViewById(R.id.spinner)
+
+        val adaptador = ArrayAdapter(this,android.R.layout.simple_list_item_1,fileNameList)
+        spinner.adapter = adaptador
+
+        spinner.onItemSelectedListener = object :AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                Toast.makeText(applicationContext, "id archivo "+fileNameList.get(position).id+" id_usuario "+getID(), Toast.LENGTH_SHORT).show()
+                id_archivox = fileNameList.get(position).id
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        btn_cancela.setOnClickListener {
+            dialog.dismiss()
+        }
+        btn_envia.setOnClickListener {
+            enviaDatosAdicionar(id_archivox,getID().toString(),dialog)
+        }
+
+
+
+        dialog.show()
+    }
+
+    private fun enviaDatosAdicionar(idArchivox: String, id_usuario: String, dialog: Dialog) {
+        val queque = Volley.newRequestQueue(this)
+        val stringRequest = object :StringRequest(Request.Method.POST,Contants.ADRRESS_IP+"file/add",Response.Listener {
+                response ->
+
+            Toast.makeText(this, "LOS DATOS SE ENVIARON CORRECTAMENTE", Toast.LENGTH_SHORT).show()
+            listarArchivos()
+            dialog.dismiss()
+        },Response.ErrorListener {
+                error ->
+            Toast.makeText(this, "Error "+error.message, Toast.LENGTH_SHORT).show()
+        })
+        {
+            override fun getHeaders(): MutableMap<String, String> {
+                val parametros = HashMap<String,String>()
+                parametros.put("Authorization","Token "+getToken().toString())
+                return parametros
+            }
+
+            override fun getParams(): MutableMap<String, String>? {
+                val parametros = HashMap<String,String>()
+                parametros.put("id_usuario",id_usuario)
+                parametros.put("id_archivo",idArchivox)
+                return parametros
+            }
+
+        }
+        queque.add(stringRequest)
     }
 
     private fun listarArchivos() {
@@ -117,7 +197,6 @@ class MainActivity : AppCompatActivity(), Interfaz {
         dialog.window?.setLayout(width,heigth)
 
 
-        editTextCorreo = dialog.findViewById(R.id.editTextCorreo)
         btn_envia = dialog.findViewById(R.id.btn_envia)
         btn_cancela = dialog.findViewById(R.id.btn_cancela)
         spinner = dialog.findViewById(R.id.spinner)
@@ -140,7 +219,7 @@ class MainActivity : AppCompatActivity(), Interfaz {
                 TODO("Not yet implemented")
             }
         }
-        editTextCorreo.setText(nombre)
+
         btn_cancela.setOnClickListener {
             dialog.dismiss()
         }
@@ -215,4 +294,5 @@ class MainActivity : AppCompatActivity(), Interfaz {
         }
         queque.add(stringRequest)
     }
+
 }

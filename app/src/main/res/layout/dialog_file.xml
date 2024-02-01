@@ -11,15 +11,7 @@
         android:orientation="vertical"
         android:padding="5dp">
 
-        <EditText
-            android:id="@+id/editTextCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Introduzca su correo"
-            android:background="@drawable/bg_border"
-            android:padding="10dp"
-            android:layout_marginTop="10dp"/>
+
 
         <Spinner
             android:id="@+id/spinner"
